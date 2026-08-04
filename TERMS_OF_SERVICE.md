@@ -1,4 +1,4 @@
-# Terms of Service for LTC Assistant
+# TEST! Terms of Service for LTC Assistant
 
 Last Updated: 4 August 2026
 
