@@ -1,6 +1,6 @@
 # Terms of Service for LTC Assistant
 
-Last Updated: 4 August 2026
+Last Updated: 6 August 2026
 
 Welcome to LTC Assistant! These Terms of Service ("Terms") govern your access to and use of the LTC Assistant Discord Bot ("the Bot", "the Service").
 
@@ -11,7 +11,7 @@ By adding the Bot to a Discord server, interacting with its slash commands, or u
 LTC Assistant is a multi-purpose Discord utility bot developed by **ltchaotic** and designed with a privacy-first, least-privilege security model. The Bot operates with Discord's `message_content` intent disabled and only processes data explicitly sent via slash commands.
 
 The Service includes, but is not limited to, the following features:
-* **Interactive Assistant & Connection Chains (`/ask`, `/connectpeople`)**: Interactive answers featuring 15-minute conversation memory, follow-up replies, and biographical connection finding.
+* **Interactive Assistant & Connection Chains (`/ask`, `/connectpeople`)**: Interactive answers featuring 15-minute conversation memory, follow-up replies, and biographical connection finding (with temporary diagnostic logging on `/connectpeople` for ongoing quality assurance and bug auditing).
 * **Interactive Reminders (`/reminder`)**: A step-by-step personal reminder management system allowing you to create, view, edit, and delete up to 50 active reminders.
 * **Daily Streaks & Achievement Badges (`/daily`, `/profile`, `/badges`)**: Check-in streak tracking and tiered achievement badges.
 * **Daily Word Puzzle (`/wordquiz`)**: An interactive 5-letter daily word challenge with streak and score tracking.
