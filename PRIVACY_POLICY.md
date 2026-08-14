@@ -74,7 +74,7 @@ For ongoing quality assurance, bug analysis, and model performance verification,
 - The degrees-of-separation figure extracted from the response (if any)
 - Any error detail string (in the event of a failure)
 
-Raw Discord User IDs are **not** recorded in telemetry entries. Entries are linked to you exclusively through your pseudonymised key. When you request erasure via `/privacy`, all telemetry entries matching your account are permanently removed. The telemetry log is capped at 50 entries per user on a rolling basis; oldest entries are automatically discarded when the cap is reached.
+Raw Discord User IDs are **not** recorded in telemetry entries. Entries are linked to you exclusively through your pseudonymised key. When you request erasure via `/privacy`, all telemetry entries matching your account are permanently removed. The telemetry log is capped at 50 entries per user on a rolling basis with automatic 60-day global expiration; oldest entries are automatically discarded when the cap or expiration is reached.
 
 ---
 
@@ -148,7 +148,7 @@ Your data is used exclusively to:
 | Check-in streaks & badges | Until user data wiped via `/privacy` |
 | WordQuiz state | Until user data wiped via `/privacy` |
 | Disclaimer acceptance | Until user data wiped via `/privacy` |
-| `/connectpeople` telemetry | Rolling cap (max 50 entries per user); permanently deleted on user erasure request |
+| `/connectpeople` telemetry | 60 days maximum (rolling 50-entry cap per user); permanently deleted on user erasure request |
 | `/ask` conversation memory | Up to 15 minutes in RAM; never persisted to disk |
 | AI usage quotas | Up to 24 hours in RAM; never persisted to disk |
 | Anthropic API retention | 30 days on Anthropic backend (abuse screening only; zero model training) |
