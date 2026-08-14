@@ -1,6 +1,6 @@
 # Privacy Policy for LTC Assistant
 
-Last Updated: 6 August 2026
+Last Updated: 14 August 2026
 
 This Privacy Policy explains how LTC Assistant ("the Bot", "we", "us") collects, uses, stores, and protects your personal information. LTC Assistant is built around strict privacy-first principles, employing pseudonymised data storage, least-privilege Discord permissions, atomic file writes, and minimal data retention to protect user privacy at every layer.
 
@@ -27,12 +27,12 @@ We collect and retain only the minimum data necessary to provide and maintain ea
 
 ### Reminders (`/reminder`)
 - Your pseudonymised user key
-- The reminder message text
+- The reminder message text (encrypted at rest using Fernet symmetric encryption)
 - The scheduled delivery time (UTC ISO 8601 timestamp)
-- Your raw Discord User ID (stored inside each reminder entry as `creator` to allow Direct Message delivery)
+- Your raw Discord User ID (encrypted at rest inside each reminder entry as `creator` to allow Direct Message delivery)
 - A unique internal reminder identifier (UUID hex)
 
-> **Note**: Your raw Discord User ID is retained within reminder entries solely to enable the bot to deliver your reminder to your Discord Direct Messages. It is not used for any other purpose and is removed when you delete reminders or wipe your data via `/privacy`.
+> **Note**: Your raw Discord User ID is encrypted at rest and retained within reminder entries solely to enable the bot to deliver your reminder to your Discord Direct Messages. It is not used for any other purpose and is permanently removed when you delete reminders or wipe your data via `/privacy`.
 
 ### Daily Check-In Streaks & Badges (`/daily`, `/profile`)
 - Your pseudonymised user key
@@ -65,16 +65,16 @@ This data is set and managed exclusively by server administrators. No user-level
 For ongoing quality assurance, bug analysis, and model performance verification, a structured log entry is recorded for each use of `/connectpeople`. Each entry contains:
 - A short random internal record identifier
 - The UTC timestamp of the request
-- Your pseudonymised user key
+- Your pseudonymised user key (or `activity_token`)
 - The sanitised names of both people submitted
 - The status of the request (e.g. success, error, or safety block)
-- The AI model that generated the response
+- The AI model that generated the response (e.g. `claude-sonnet-5`, `gemini-3.6-flash`)
 - The execution duration in seconds
 - The length of the generated response in characters
 - The degrees-of-separation figure extracted from the response (if any)
 - Any error detail string (in the event of a failure)
 
-Raw Discord User IDs are **not** recorded in telemetry entries. Entries are linked to you exclusively through your pseudonymised key. When you request erasure via `/privacy`, all telemetry entries matching any of your candidate pseudonymised keys are permanently removed. The telemetry log is capped at 200 entries on a rolling basis; oldest entries are automatically discarded when the cap is reached.
+Raw Discord User IDs are **not** recorded in telemetry entries. Entries are linked to you exclusively through your pseudonymised key. When you request erasure via `/privacy`, all telemetry entries matching your account are permanently removed. The telemetry log is capped at 50 entries per user on a rolling basis; oldest entries are automatically discarded when the cap is reached.
 
 ---
 
@@ -102,20 +102,26 @@ All persistent data files are stored on a private server with no public-facing n
 
 - **Restricted File Permissions**: All data files are created with OS-level permissions (`0o600`), restricting read and write access to the bot process only.
 - **Atomic Writes**: Data is written to a temporary file and then atomically replaced, preventing corruption from interrupted writes or concurrent access.
+- **Field-Level Encryption**: Sensitive data such as reminder text and recipient creator IDs are encrypted at rest using AES-128 CBC / HMAC SHA-256 via Fernet keys derived from server salt.
 - **Private Server Access**: The server is accessible only via SSH with key-based authentication; no password-based login is enabled.
-
-> **Transparency Note — Plaintext Storage**: Stored data fields (including reminder text and submitted person names in telemetry) are written in plaintext rather than encrypted at rest. Field-level encryption was considered but provides limited additional protection in a single-server architecture where the decryption key must reside on the same host. The primary protection layer is OS-level access control combined with SSH key-only server access. Users who wish to avoid any risk of data exposure should avoid entering sensitive personal information into Bot commands, and may delete all stored data at any time via `/privacy`.
 
 ---
 
 ## 5. Third-Party Services & External Data Processing
 
-To provide specific features, the Bot communicates with external service providers. We do not sell or share your personal data with any third party beyond these essential functional connections.
+To provide specific features, the Bot communicates with external service providers over encrypted HTTPS connections. We do not sell or share your personal data with any third party beyond these essential functional connections.
 
-### Google Gemini API
-When you use `/ask` or `/connectpeople`, your input text is transmitted over an encrypted HTTPS connection to Google's Gemini AI API for response generation. **This means your query text leaves the Bot's local security boundary and is processed by Google LLC** in accordance with [Google's Privacy Policy](https://policies.google.com/privacy) and their [Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms). We have no control over how Google processes, retains, or uses query data once transmitted. We do not store your `/ask` prompts to disk. `/connectpeople` person name inputs are stored in local diagnostic telemetry as described in Section 2.
+### Anthropic Claude API (Primary AI Engine)
+When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Anthropic's Messages API (`https://api.anthropic.com/v1/messages`). We use a paid Commercial API key (`claude-sonnet-5`), which operates under **Anthropic's Commercial Terms of Service**:
 
-> **Risk Acknowledgement**: Because AI queries cross into a third-party processing boundary, you should **not** submit secrets, passwords, confidential personal data, financial information, or sensitive third-party data as part of any AI-powered command. The first-time `/ask` disclaimer reminds users of this before first use.
+* **Zero Model Training**: Traffic sent through our paid API key falls under Anthropic's Commercial Terms. Your prompts and Claude's responses are **never used to train Anthropic's AI models**, full stop, regardless of any setting. This is an explicit contractual guarantee without any opt-in/opt-out toggles required.
+* **30-Day Security & Abuse Retention**: Inputs and outputs are held on Anthropic's backend for a standard window of **30 days** purely for trust & safety, abuse detection, and legal compliance, after which they are automatically deleted.
+* **Automated Safety Classifiers**: Anthropic runs automated safety classifiers over submitted content solely to screen for policy violations (such as CSAM, cyberattack tooling, or weapons instructions). This is strict abuse screening—Anthropic performs no behavioral analytics, advertising profiling, or user tracking on API traffic.
+
+### Google Gemini API (Fallback AI Engine)
+If the primary Claude model is temporarily unavailable, rate-limited, or experiencing latency, the Bot automatically routes the request through Google's Gemini AI API (`gemini-3.6-flash` ➔ `gemini-2.5-flash` ➔ `gemini-2.0-flash` ➔ `gemini-1.5-flash`). This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms).
+
+> **Important Privacy Notice**: While our primary Claude integration guarantees zero model training, you should **never** submit secrets, passwords, confidential personal data, financial information, or sensitive third-party data into `/ask` or `/connectpeople`. The first-time `/ask` disclaimer reminds users of this before first use.
 
 ### Roblox Public APIs
 When you use `/robloxuser`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
@@ -142,15 +148,16 @@ Your data is used exclusively to:
 | Check-in streaks & badges | Until user data wiped via `/privacy` |
 | WordQuiz state | Until user data wiped via `/privacy` |
 | Disclaimer acceptance | Until user data wiped via `/privacy` |
-| `/connectpeople` telemetry | Rolling 200-entry cap; permanently deleted on user erasure request |
+| `/connectpeople` telemetry | Rolling cap (max 50 entries per user); permanently deleted on user erasure request |
 | `/ask` conversation memory | Up to 15 minutes in RAM; never persisted to disk |
 | AI usage quotas | Up to 24 hours in RAM; never persisted to disk |
+| Anthropic API retention | 30 days on Anthropic backend (abuse screening only; zero model training) |
 
 ---
 
 ## 8. Your Data Rights & Self-Service Controls
 
-We respect your rights under the UK General Data Protection Regulation (UK GDPR). All users have direct, self-service control over their stored data.
+We respect your rights under the UK General Data Protection Regulation (UK GDPR). All users have direct, self-service control over their stored data:
 
 - **Right to Access**: You can view your stored badge progress, check-in streaks, and active reminders at any time using `/profile` and `/reminder`.
 - **Right to Erasure (`/privacy` → Delete Stored Data)**: You may permanently delete all data the Bot holds about you at any time. This action removes your reminders, streak history, badge progress, WordQuiz records, disclaimer acceptance, and all `/connectpeople` telemetry entries linked to your account. Any active AI session is simultaneously purged from RAM. **This action is irreversible.**

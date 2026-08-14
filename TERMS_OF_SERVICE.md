@@ -1,6 +1,6 @@
 # Terms of Service for LTC Assistant
 
-Last Updated: 6 August 2026
+Last Updated: 14 August 2026
 
 Welcome to LTC Assistant. These Terms of Service ("Terms") govern your access to and use of the LTC Assistant Discord Bot ("the Bot", "the Service"). Please read them carefully.
 
@@ -14,7 +14,7 @@ LTC Assistant is a multi-purpose Discord utility bot developed and operated by *
 
 The Service includes, but is not limited to, the following features:
 
-- **AI Assistant (`/ask`)**: Submit questions for an AI-generated response with optional 15-minute multi-turn conversation memory. Responses are private by default and auto-delete after 15 minutes.
+- **AI Assistant (`/ask`)**: Submit questions for an AI-generated response powered by Anthropic's Claude and Google's Gemini models with optional 15-minute multi-turn conversation memory. Responses are private by default and auto-delete after 15 minutes.
 - **People Connection Finder (`/connectpeople`)**: Submit two names to receive an AI-generated shortest historical or biographical connection chain between them, subject to a daily usage quota.
 - **Personal Reminders (`/reminder`)**: A self-service step-by-step reminder management centre, allowing you to create, view, edit, and delete up to 50 active personal reminders.
 - **Daily Check-In Streaks & Badges (`/daily`, `/profile`)**: A daily check-in system that tracks streaks and awards tiered achievement badges (Bronze through Diamond) across three badge categories.
@@ -48,9 +48,10 @@ By using the Service, you agree **not** to:
 
 ## 4. Third-Party Services & Integrations
 
-Certain features of the Service depend on third-party APIs. By using these features, you acknowledge that your data will be processed by these third parties in accordance with their respective policies.
+Certain features of the Service depend on third-party APIs. By using these features, you acknowledge that your data will be processed by these third parties in accordance with their respective commercial and public policies:
 
-- **Google Gemini API** (`/ask`, `/connectpeople`): Your input text is transmitted to Google's Gemini AI API over an encrypted connection to generate responses. Use of these commands constitutes consent to that transmission. Google's processing is governed by [Google's Privacy Policy](https://policies.google.com/privacy).
+- **Anthropic Claude Commercial API** (`/ask`, `/connectpeople`): Queries are processed primarily via Anthropic's Messages API under Anthropic's Commercial Terms. Prompts and outputs are **never used to train models** and are retained for a 30-day window solely for abuse screening and security compliance.
+- **Google Gemini API** (`/ask`, `/connectpeople`): Serves as the fallback tier if the primary model is unavailable. Governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms).
 - **Roblox APIs** (`/robloxuser`): Profile lookups query publicly available endpoints on Roblox's official API infrastructure. Only publicly accessible data is retrieved. No authentication credentials belonging to the queried user are accessed.
 
 We do not sell your data or share it with third parties outside of these functional integrations.
@@ -66,7 +67,7 @@ The following additional terms apply to AI-powered features (`/ask`, `/connectpe
 - **Session Lifespan**: Conversation memory for `/ask` exists in RAM for up to 15 minutes following the most recent reply. The Discord response message is automatically deleted after 15 minutes. You may also immediately delete a session using the **Delete** button.
 - **Character Limits**: `/ask` questions are limited to 1,000 characters. `/connectpeople` person name inputs are limited to 80 characters each after sanitisation.
 - **Accuracy & Reliability**: AI-generated responses are provided for informational and general-assistance purposes only. Outputs may contain inaccuracies, omissions, or be subject to safety filter restrictions. You must not rely on responses for professional, medical, legal, financial, or safety-critical advice.
-- **Safety Filters**: Content that triggers Google's Gemini safety or content moderation filters will not be delivered. The Bot will notify you if a request is blocked for this reason.
+- **Safety Filters**: Content that triggers automated safety classifiers (Anthropic or Google) will not be delivered. The Bot will notify you if a request is blocked for this reason.
 
 ---
 
@@ -74,8 +75,8 @@ The following additional terms apply to AI-powered features (`/ask`, `/connectpe
 
 The Bot's full data collection and retention practices are documented in the accompanying [Privacy Policy](https://ltchaotic23.github.io/ltc-assistant-docs/PRIVACY_POLICY.md). Key points:
 
-- User data is stored using pseudonymised keys (SHA-256 + server-side salt); raw Discord User IDs are not used as storage keys for personal data files, with the limited exception of reminder delivery references and diagnostic telemetry entries (used solely to enable delivery and support erasure requests).
-- All persistent data files use restricted OS-level permissions and atomic write operations.
+- User data is stored using pseudonymised keys (SHA-256 + server-side salt); sensitive fields (such as reminders) are encrypted at rest.
+- All persistent data files use restricted OS-level permissions (`0o600`) and atomic write operations.
 - AI usage quotas and conversation memory are held in RAM only and are never written to disk.
 - Users may permanently delete all stored data at any time via `/privacy`.
 
