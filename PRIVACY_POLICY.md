@@ -60,7 +60,7 @@ For ongoing quality assurance, bug analysis, and model performance verification,
 - Your pseudonymised user key (or `activity_token`)
 - The sanitised names of both people submitted
 - The status of the request (e.g. success, error, or safety block)
-- The AI model that generated the response (e.g. `gemini-3.7-flash`, `gemini-3.6-flash`)
+- The AI model that generated the response (e.g. `gemini-3.8-flash`, `gemini-3.7-flash`, `gemini-3.6-flash`)
 - The execution duration in seconds
 - The length of the generated response in characters
 - The degrees-of-separation figure extracted from the response (if any)
@@ -104,7 +104,7 @@ All persistent data files are stored on a private server with no public-facing n
 To provide specific features, the Bot communicates with external service providers over encrypted HTTPS connections. We do not sell or share your personal data with any third party beyond these essential functional connections.
 
 ### Google Gemini API (Primary AI Engine)
-When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI API endpoints (`gemini-3.7-flash` with fallbacks to `gemini-3.6-flash`, `gemini-2.5-flash`, `gemini-2.0-flash`, and `gemini-1.5-flash`). This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
+When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI API endpoints (`gemini-3.8-flash` with fallbacks to `gemini-3.7-flash`, `gemini-3.6-flash`, and `gemini-3.5-flash`). This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
 
 * **API Processing & Product Improvement**: Under Google's standard / free tier API terms, submitted prompt queries and model outputs may be processed by Google to provide, maintain, and improve Google products and services, and may be reviewed by trained human reviewers for quality and safety.
 * **Abuse & Safety Screening**: Google applies automated safety classifiers to detect policy violations (such as CSAM, malicious tooling, or harmful content) and retains request logs for security and statutory compliance.
