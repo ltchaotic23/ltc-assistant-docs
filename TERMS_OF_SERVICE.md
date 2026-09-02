@@ -1,6 +1,6 @@
 # Terms of Service for LTC Assistant
 
-Last Updated: 14 August 2026
+Last Updated: 2 September 2026
 
 Welcome to LTC Assistant. These Terms of Service ("Terms") govern your access to and use of the LTC Assistant Discord Bot ("the Bot", "the Service"). Please read them carefully.
 
@@ -14,14 +14,13 @@ LTC Assistant is a multi-purpose Discord utility bot developed and operated by *
 
 The Service includes, but is not limited to, the following features:
 
-- **AI Assistant (`/ask`)**: Submit questions for an AI-generated response powered by Anthropic's Claude and Google's Gemini models with optional 15-minute multi-turn conversation memory. Responses are private by default and auto-delete after 15 minutes.
+- **AI Assistant (`/ask`)**: Submit questions for an AI-generated response powered by Google's Gemini API with optional 15-minute multi-turn conversation memory. Responses are private by default and auto-delete after 15 minutes.
 - **People Connection Finder (`/connectpeople`)**: Submit two names to receive an AI-generated shortest historical or biographical connection chain between them, subject to a daily usage quota.
 - **Personal Reminders (`/reminder`)**: A self-service step-by-step reminder management centre, allowing you to create, view, edit, and delete up to 50 active personal reminders.
 - **Daily Check-In Streaks & Badges (`/daily`, `/profile`)**: A daily check-in system that tracks streaks and awards tiered achievement badges (Bronze through Diamond) across three badge categories.
-- **Daily Word Puzzle (`/wordquiz`)**: A 5-letter daily Wordle-style word challenge with up to 6 attempts, with streak and win tracking.
 - **Roblox User Lookups (`/robloxuser`)**: Retrieves publicly available profile information, avatar images, presence status, social statistics, and group memberships from Roblox's public APIs.
 - **Server & User Information (`/serverinfo`, `/userinfo`, `/about`, `/help`)**: Informational displays of Discord server and user profile data. No data from these commands is stored.
-- **Server Welcome Onboarding (`/setwelcome`)**: Administrator-configurable automated welcome message system for Discord servers.
+- **Server Administration (`/serversetup`, `/setwelcome`)**: Administrator control center for automated welcome messages, auto-role assignment, and native AutoMod security shields (Anti-Phishing, Invite Shield, Mention Spam, Toxicity Filter).
 - **Privacy & Data Management (`/privacy`)**: Self-service tools to review data handling, permanently delete all stored personal data, and clean up Direct Message history.
 
 ---
@@ -36,7 +35,7 @@ In compliance with Discord's Terms of Service, you must be at least 13 years of 
 
 By using the Service, you agree **not** to:
 
-- **Attempt to bypass rate limits or quotas**: The Service enforces a 30-query daily limit across `/ask` and `/connectpeople`, a 15-second per-command cooldown on `/ask` and `/connectpeople`, and a 3-second cooldown on `/wordquiz`. You must not attempt to circumvent these limits through any means.
+- **Attempt to bypass rate limits or quotas**: The Service enforces a 30-query daily limit across `/ask` and `/connectpeople`, and a 15-second per-command cooldown on `/ask` and `/connectpeople`. You must not attempt to circumvent these limits through any means.
 - **Abuse or overload the Service**: You must not deliberately send requests designed to crash, overload, or degrade the performance of the Bot or its underlying infrastructure.
 - **Reverse-engineer or exploit the Service**: You must not attempt to reverse-engineer, decompile, or exploit any aspect of the Bot, its code, its API integrations, or the server infrastructure.
 - **Submit harmful or unlawful content**: You must not use `/ask`, `/reminder`, welcome message templates, or any other input field to generate, store, or distribute content that is illegal, harmful, harassing, hateful, or in violation of Discord's Terms of Service or Community Guidelines.
@@ -50,8 +49,7 @@ By using the Service, you agree **not** to:
 
 Certain features of the Service depend on third-party APIs. By using these features, you acknowledge that your data will be processed by these third parties in accordance with their respective commercial and public policies:
 
-- **Anthropic Claude Commercial API** (`/ask`, `/connectpeople`): Queries are processed primarily via Anthropic's Messages API under Anthropic's Commercial Terms. Prompts and outputs are **never used to train models** and are retained for a 30-day window solely for abuse screening and security compliance.
-- **Google Gemini API** (`/ask`, `/connectpeople`): Serves as the fallback tier if the primary model is unavailable. Governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms).
+- **Google Gemini API** (`/ask`, `/connectpeople`): Queries are processed via Google's official Gemini AI API endpoints. This processing is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms). Under standard API terms, prompts and outputs may be processed by Google to improve services. Users must not submit sensitive personal data or secrets.
 - **Roblox APIs** (`/robloxuser`): Profile lookups query publicly available endpoints on Roblox's official API infrastructure. Only publicly accessible data is retrieved. No authentication credentials belonging to the queried user are accessed.
 
 We do not sell your data or share it with third parties outside of these functional integrations.
@@ -67,7 +65,7 @@ The following additional terms apply to AI-powered features (`/ask`, `/connectpe
 - **Session Lifespan**: Conversation memory for `/ask` exists in RAM for up to 15 minutes following the most recent reply. The Discord response message is automatically deleted after 15 minutes. You may also immediately delete a session using the **Delete** button.
 - **Character Limits**: `/ask` questions are limited to 1,000 characters. `/connectpeople` person name inputs are limited to 80 characters each after sanitisation.
 - **Accuracy & Reliability**: AI-generated responses are provided for informational and general-assistance purposes only. Outputs may contain inaccuracies, omissions, or be subject to safety filter restrictions. You must not rely on responses for professional, medical, legal, financial, or safety-critical advice.
-- **Safety Filters**: Content that triggers automated safety classifiers (Anthropic or Google) will not be delivered. The Bot will notify you if a request is blocked for this reason.
+- **Safety Filters**: Content that triggers automated safety classifiers will not be delivered. The Bot will notify you if a request is blocked for this reason.
 
 ---
 
