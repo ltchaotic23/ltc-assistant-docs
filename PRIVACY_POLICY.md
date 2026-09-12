@@ -11,7 +11,7 @@ By using the Bot, you agree to the collection and processing of information in a
 ## 1. Core Privacy & Security Principles
 
 ### Least-Privilege Intent Access
-The Bot operates with Discord's `message_content` intent explicitly disabled for general usage. This means the Bot cannot read general channel messages, server chat history, or any messages you send outside of a slash command. The `members` intent is enabled solely to resolve member objects when displaying server membership information in `/userinfo` and to deliver automated welcome greetings and auto-roles when enabled by server administrators. It is never used for mass data scraping or harvesting.
+The Bot operates with Discord's `message_content` intent explicitly disabled for general usage. This means the Bot cannot read general channel messages, server chat history, or any messages you send outside of a slash command. The `members` intent is enabled solely to resolve member objects when displaying server membership information in `/discordinfo` and to deliver automated welcome greetings and auto-roles when enabled by server administrators. It is never used for mass data scraping or harvesting.
 
 ### Pseudonymised Data Storage
 Raw Discord User IDs are not stored directly on disk for any user-facing features (streaks, badges, reminders, or disclaimer records). Instead, persistent data is keyed using a cryptographic pseudonym: a truncated SHA-256 hash of your Discord User ID combined with a private, server-side salt value. This means stored data cannot be attributed to a specific Discord account without access to both the original User ID and the private salt. Under the UK GDPR and EU GDPR, this is classified as pseudonymisation rather than full anonymisation, as the link to your identity can theoretically be re-established using the original identifier.
@@ -113,7 +113,7 @@ When you use `/ask` or `/connectpeople`, your input query text is transmitted ov
 > **Important Privacy Notice**: Because Google processes free-tier API queries under its standard terms, you should **never** submit secrets, passwords, financial information, confidential personal data, or sensitive third-party credentials into `/ask` or `/connectpeople`. The first-time `/ask` disclaimer reminds users of this requirement before first use.
 
 ### Roblox Public APIs
-When you use `/robloxuser`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
+When you use `/robloxinfo`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
 
 ---
 

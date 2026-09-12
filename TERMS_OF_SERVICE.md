@@ -18,8 +18,8 @@ The Service includes, but is not limited to, the following features:
 - **People Connection Finder (`/connectpeople`)**: Submit two names to receive an AI-generated shortest historical or biographical connection chain between them, subject to a daily usage quota.
 - **Personal Reminders (`/reminder`)**: A self-service step-by-step reminder management centre, allowing you to create, view, edit, and delete up to 50 active personal reminders.
 - **Daily Check-In Streaks & Badges (`/daily`, `/profile`)**: A daily check-in system that tracks streaks and awards tiered achievement badges (Bronze through Diamond) across three badge categories.
-- **Roblox User Lookups (`/robloxuser`)**: Retrieves publicly available profile information, avatar images, presence status, social statistics, and group memberships from Roblox's public APIs.
-- **Server & User Information (`/serverinfo`, `/userinfo`, `/about`, `/help`)**: Informational displays of Discord server and user profile data. No data from these commands is stored.
+- **Roblox User Lookups (`/robloxinfo`)**: Retrieves publicly available profile information, avatar images, presence status, social statistics, and group memberships from Roblox's public APIs.
+- **Server & User Information (`/serverinfo`, `/discordinfo`, `/about`, `/help`)**: Informational displays of Discord server and user profile data. No data from these commands is stored.
 - **Server Administration (`/serversetup`, `/setwelcome`)**: Administrator control center for automated welcome messages, auto-role assignment, and native AutoMod security shields (Anti-Phishing, Invite Shield, Mention Spam, Toxicity Filter).
 - **Privacy & Data Management (`/privacy`)**: Self-service tools to review data handling, permanently delete all stored personal data, and clean up Direct Message history.
 
@@ -50,7 +50,7 @@ By using the Service, you agree **not** to:
 Certain features of the Service depend on third-party APIs. By using these features, you acknowledge that your data will be processed by these third parties in accordance with their respective commercial and public policies:
 
 - **Google Gemini API** (`/ask`, `/connectpeople`): Queries are processed via Google's official Gemini AI API endpoints. This processing is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms). Under standard API terms, prompts and outputs may be processed by Google to improve services. Users must not submit sensitive personal data or secrets.
-- **Roblox APIs** (`/robloxuser`): Profile lookups query publicly available endpoints on Roblox's official API infrastructure. Only publicly accessible data is retrieved. No authentication credentials belonging to the queried user are accessed.
+- **Roblox APIs** (`/robloxinfo`): Profile lookups query publicly available endpoints on Roblox's official API infrastructure. Only publicly accessible data is retrieved. No authentication credentials belonging to the queried user are accessed.
 
 We do not sell your data or share it with third parties outside of these functional integrations.
 
