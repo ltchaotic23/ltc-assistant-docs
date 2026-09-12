@@ -162,3 +162,7 @@ We may update this Privacy Policy from time to time to reflect feature updates, 
 ## 10. Contact
 
 If you have questions about this Privacy Policy or wish to exercise your data privacy rights, please contact the bot owner directly on Discord: **ltchaotic** (`<@363601406445355008>`).
+
+
+### 6.4. Minecraft & NameMC Lookup APIs (`/minecraftinfo`)
+When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
