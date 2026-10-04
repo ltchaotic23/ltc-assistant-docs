@@ -140,7 +140,30 @@ Your data is used exclusively to:
 
 ---
 
-## 7. Data Retention
+## 7. Lawful Bases for Processing (UK GDPR Article 6)
+
+Under the UK General Data Protection Regulation (UK GDPR), we collect and process your personal data under the following lawful bases:
+
+### Performance of a Contract (Article 6(1)(b))
+Processing is necessary to perform our obligations to you under our Terms of Service when you invoke specific interactive features:
+- **Reminders (`/reminder`)**: Storing, managing, and delivering personal reminders to your Direct Messages at your requested time.
+- **Check-In Streaks & Badges (`/daily`, `/profile`)**: Recording your daily check-in streak count and awarding achievement badges upon your command.
+- **AI Query Execution (`/ask`, `/connectpeople`)**: Transmitting your query to AI infrastructure and delivering the generated response.
+
+### Consent (Article 6(1)(a))
+Where you provide explicit, affirmative agreement:
+- **First-Time AI Disclaimer Acceptance**: Recording your acceptance before `/ask` unlocks. You may withdraw this consent at any time by erasing your data via `/privacy`.
+
+### Legitimate Interests (Article 6(1)(f))
+We process personal data where necessary for our legitimate interests or those of a third party, balanced against your rights and freedoms:
+- **Diagnostic Telemetry (`/connectpeople`)**: Our legitimate interest in quality assurance, verifying AI connection accuracy, detecting bugs, and maintaining system availability. *Safeguards*: Pseudonymised keys, a rolling 50-entry cap per user, and 60-day automatic expiration.
+- **Operational Diagnostic Logging**: Our legitimate interest in host security, preventing abuse or malicious overload, and troubleshooting runtime crashes. *Safeguards*: Local systemd access only, 100 MB storage cap, and 14-day rolling retention.
+- **Server Administration (`/serversetup`, `/setwelcome`)**: The legitimate interest of Discord server administrators in operating onboarding welcomes, assigning community roles, and enabling edge AutoMod rules.
+- **Minecraft Community Integrations**: The legitimate interest of LTC Sandbox members in transparent cross-platform chat relay, public server playtime leaderboards, and public audit records.
+
+---
+
+## 8. Data Retention
 
 | Data Type | Retention Period |
 | :--- | :--- |
@@ -155,22 +178,43 @@ Your data is used exclusively to:
 
 ---
 
-## 8. Your Data Rights & Self-Service Controls
+## 9. Your Data Rights & Statutory Safeguards (UK GDPR)
 
-We respect your rights under the UK General Data Protection Regulation (UK GDPR). All users have direct, self-service control over their stored data:
+We respect your statutory rights under the UK General Data Protection Regulation (UK GDPR). All users have direct, self-service control over their stored data:
 
-- **Right to Access**: You can view your stored badge progress, check-in streaks, and active reminders at any time using `/profile` and `/reminder`.
-- **Right to Erasure (`/privacy` → Delete Stored Data)**: You may permanently delete all data the Bot holds about you at any time. This action removes your reminders, streak history, badge progress, disclaimer acceptance, and all `/connectpeople` telemetry entries linked to your account. Any active AI session is simultaneously purged from RAM. **This action is irreversible.**
-- **DM Message Cleanup (`/privacy` → Clear DM Messages)**: Within Direct Messages, you may use this tool to automatically remove previous Bot messages from your Direct Message chat log.
+- **Right to be Informed (Articles 13 & 14)**: We provide transparent documentation of all data processing through this Privacy Policy and within command documentation.
+- **Right of Access (Article 15)**: You can directly view all stored data associated with your pseudonymised account at any time using `/profile` (streaks and badges) and `/reminder` (scheduled reminders).
+- **Right to Rectification (Article 16)**: You can correct inaccurate information at any time, such as modifying reminder content or rescheduled times using `/reminder edit`.
+- **Right to Erasure / "Right to be Forgotten" (Article 17)**: You have immediate, unilateral self-service erasure. Executing `/privacy` → **Delete Stored Data** permanently and irreversibly deletes your reminders, streak counts, badge achievements, disclaimer records, and all `/connectpeople` diagnostic telemetry linked to your account, while clearing any active in-memory AI sessions.
+- **Right to Restrict Processing (Article 18)**: You may restrict processing at any time by ceasing use of specific commands or purging your stored data via `/privacy`.
+- **Right to Data Portability (Article 20)**: Your reminders and streak achievements are presented directly in standard, structured formats within Discord.
+- **Right to Object (Article 21)**: You have the right to object to data processing carried out under our legitimate interests. Because all Bot features operate strictly on an on-demand command basis, you can exercise this right at any time by executing `/privacy` to erase your data and refraining from invoking Bot commands.
+- **Automated Decision-Making & Profiling (Article 22)**: LTC Assistant does **not** perform automated profiling or make automated decisions producing legal or similarly significant effects concerning users.
+- **DM Chat Log Cleanup**: Within Direct Messages, you may use `/privacy` → **Clear DM Messages** to automatically purge previous Bot responses from your Direct Message chat log.
+
+### Right to Lodge a Complaint with the Supervisory Authority (ICO)
+If you are located in the United Kingdom and believe your personal data has been handled unlawfully or if you are dissatisfied with our response to a rights request, you have the statutory right to lodge a complaint with the UK data protection authority:
+
+* **Information Commissioner's Office (ICO)**
+* **Website**: [https://ico.org.uk](https://ico.org.uk)
+* **Helpline**: `0303 123 1113`
+* **Address**: Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF, United Kingdom
 
 ---
 
-## 9. Changes to This Privacy Policy
+## 10. Data Controller & Contact Information
+
+LTC Assistant is developed and operated by individual developer **ltchaotic** as the Data Controller under the UK GDPR.
+
+If you have questions about this Privacy Policy, wish to exercise any statutory rights, or require assistance with data deletion:
+
+- **Discord Direct Message**: Contact the developer directly: **ltchaotic** (`<@363601406445355008>`).
+- **Support & Sandbox Server**: Join the official server and contact staff or open an inquiry: [https://discord.gg/Vm4y4pA3Yj](https://discord.gg/Vm4y4pA3Yj).
+
+Users who do not have an active Discord account may contact the controller via the official support server or through the GitHub repository issue tracker at [https://github.com/ltchaotic23/ltc-assistant-docs](https://github.com/ltchaotic23/ltc-assistant-docs).
+
+---
+
+## 11. Changes to This Privacy Policy
 
 We may update this Privacy Policy from time to time to reflect feature updates, changes in data practices, or legal requirements. The "Last Updated" date at the top of this document will reflect the date of the most recent revision. Continued use of the Bot after an update constitutes acceptance of the revised policy.
-
----
-
-## 10. Contact
-
-If you have questions about this Privacy Policy or wish to exercise your data privacy rights, please contact the bot owner directly on Discord: **ltchaotic** (`<@363601406445355008>`).
