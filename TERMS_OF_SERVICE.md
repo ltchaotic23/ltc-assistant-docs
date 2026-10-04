@@ -119,4 +119,4 @@ These Terms shall be governed by and construed in accordance with the laws of En
 If you have questions, concerns, or requests regarding these Terms, please contact the bot operator:
 - **Discord Direct Message**: **ltchaotic** (`<@363601406445355008>`)
 - **Support & Sandbox Server**: [https://discord.gg/Vm4y4pA3Yj](https://discord.gg/Vm4y4pA3Yj)
-- **GitHub Repository**: [https://github.com/ltchaotic23/ltc-assistant-docs](https://github.com/ltchaotic23/ltc-assistant-docs)
+- **GitHub Issues**: [https://github.com/ltchaotic23/ltc-assistant-docs/issues](https://github.com/ltchaotic23/ltc-assistant-docs/issues)

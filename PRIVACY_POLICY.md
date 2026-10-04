@@ -200,13 +200,10 @@ To make managing your information as convenient as possible, the Bot includes di
 
 If you wish to exercise any statutory data protection rights or have questions about your data, please contact the developer directly via Discord or the official support server.
 
-### Right to Lodge a Complaint with the Supervisory Authority (ICO)
-If you are located in the United Kingdom and believe your personal data has been handled unlawfully or if you are dissatisfied with our response to a rights request, you have the statutory right to lodge a complaint with the UK data protection authority:
-
-* **Information Commissioner's Office (ICO)**
+### Right to Lodge a Complaint
+If you are based in the United Kingdom and believe your data has been handled unlawfully, you have the right to lodge a complaint with the UK Information Commissioner's Office (ICO):
 * **Website**: [https://ico.org.uk](https://ico.org.uk)
 * **Helpline**: `0303 123 1113`
-* **Address**: Wycliffe House, Water Lane, Wilmslow, Cheshire, SK9 5AF, United Kingdom
 
 ---
 
@@ -219,7 +216,7 @@ If you have questions about this Privacy Policy, wish to exercise any statutory 
 - **Discord Direct Message**: Contact the developer directly: **ltchaotic** (`<@363601406445355008>`).
 - **Support & Sandbox Server**: Join the official server and contact staff or open an inquiry: [https://discord.gg/Vm4y4pA3Yj](https://discord.gg/Vm4y4pA3Yj).
 
-Users who do not have an active Discord account may contact the controller via the official support server or through the GitHub repository issue tracker at [https://github.com/ltchaotic23/ltc-assistant-docs](https://github.com/ltchaotic23/ltc-assistant-docs).
+Users who are unable to contact the developer through Discord may submit an inquiry through the GitHub repository issue tracker at [https://github.com/ltchaotic23/ltc-assistant-docs/issues](https://github.com/ltchaotic23/ltc-assistant-docs/issues).
 
 ---
 
