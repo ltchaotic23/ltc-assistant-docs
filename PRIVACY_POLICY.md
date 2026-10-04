@@ -178,19 +178,27 @@ We process personal data where necessary for our legitimate interests or those o
 
 ---
 
-## 9. Your Data Rights & Statutory Safeguards (UK GDPR)
+## 9. Your Data Rights (UK GDPR)
 
-We respect your statutory rights under the UK General Data Protection Regulation (UK GDPR). All users have direct, self-service control over their stored data:
+Under the UK General Data Protection Regulation (UK GDPR), you have statutory rights concerning your personal data:
 
-- **Right to be Informed (Articles 13 & 14)**: We provide transparent documentation of all data processing through this Privacy Policy and within command documentation.
-- **Right of Access (Article 15)**: You can directly view all stored data associated with your pseudonymised account at any time using `/profile` (streaks and badges) and `/reminder` (scheduled reminders).
-- **Right to Rectification (Article 16)**: You can correct inaccurate information at any time, such as modifying reminder content or rescheduled times using `/reminder edit`.
-- **Right to Erasure / "Right to be Forgotten" (Article 17)**: You have immediate, unilateral self-service erasure. Executing `/privacy` → **Delete Stored Data** permanently and irreversibly deletes your reminders, streak counts, badge achievements, disclaimer records, and all `/connectpeople` diagnostic telemetry linked to your account, while clearing any active in-memory AI sessions.
-- **Right to Restrict Processing (Article 18)**: You may restrict processing at any time by ceasing use of specific commands or purging your stored data via `/privacy`.
-- **Right to Data Portability (Article 20)**: Your reminders and streak achievements are presented directly in standard, structured formats within Discord.
-- **Right to Object (Article 21)**: You have the right to object to data processing carried out under our legitimate interests. Because all Bot features operate strictly on an on-demand command basis, you can exercise this right at any time by executing `/privacy` to erase your data and refraining from invoking Bot commands.
-- **Automated Decision-Making & Profiling (Article 22)**: LTC Assistant does **not** perform automated profiling or make automated decisions producing legal or similarly significant effects concerning users.
-- **DM Chat Log Cleanup**: Within Direct Messages, you may use `/privacy` → **Clear DM Messages** to automatically purge previous Bot responses from your Direct Message chat log.
+- **Right to be Informed**: You have the right to be informed about how your personal data is collected and used. This Privacy Policy provides this information.
+- **Right of Access**: You have the right to request access to the personal data we hold about you.
+- **Right to Rectification**: You have the right to request correction of inaccurate or incomplete personal data.
+- **Right to Erasure**: You have the right to request the deletion of your personal data.
+- **Right to Restrict Processing**: You have the right to request the restriction of processing of your personal data under certain conditions.
+- **Right to Data Portability**: You have the right to request that personal data provided to us be transferred to you or another organisation where applicable.
+- **Right to Object**: You have the right to object to the processing of your personal data where processing is based on legitimate interests.
+- **Automated Decision-Making**: LTC Assistant does not engage in profiling or automated decision-making that produces legal or similarly significant effects.
+
+### Self-Service Controls
+To make managing your information as convenient as possible, the Bot includes direct self-service controls:
+- **View Stored Data**: Use `/profile` to view your check-in streak and badges, or `/reminder` to view scheduled reminders.
+- **Modify Reminders**: Use the edit option within `/reminder` to adjust reminder text or scheduled times.
+- **Delete All Stored Data**: Running `/privacy` → **Delete Stored Data** permanently deletes all persistent data associated with your pseudonymised account (reminders, streak counts, badge achievements, disclaimer records, and diagnostic telemetry) and clears active AI sessions from memory.
+- **Clear DM Messages**: Within Direct Messages, `/privacy` → **Clear DM Messages** removes the Bot's prior messages from your Direct Message chat log.
+
+If you wish to exercise any statutory data protection rights or have questions about your data, please contact the developer directly via Discord or the official support server.
 
 ### Right to Lodge a Complaint with the Supervisory Authority (ICO)
 If you are located in the United Kingdom and believe your personal data has been handled unlawfully or if you are dissatisfied with our response to a rights request, you have the statutory right to lodge a complaint with the UK data protection authority:
