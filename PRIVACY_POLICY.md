@@ -1,6 +1,6 @@
 # Privacy Policy for LTC Assistant
 
-Last Updated: 2 September 2026
+Last Updated: 4 October 2026
 
 This Privacy Policy explains how LTC Assistant ("the Bot", "we", "us") collects, uses, stores, and protects your personal information. LTC Assistant is built around strict privacy-first principles, employing pseudonymised data storage, least-privilege Discord permissions, atomic file writes, and minimal data retention to protect user privacy at every layer.
 
@@ -60,7 +60,7 @@ For ongoing quality assurance, bug analysis, and model performance verification,
 - Your pseudonymised user key (or `activity_token`)
 - The sanitised names of both people submitted
 - The status of the request (e.g. success, error, or safety block)
-- The AI model that generated the response (e.g. `gemini-3.8-flash`, `gemini-3.7-flash`, `gemini-3.6-flash`)
+- The name of the Google Gemini model that generated the response
 - The execution duration in seconds
 - The length of the generated response in characters
 - The degrees-of-separation figure extracted from the response (if any)
@@ -104,7 +104,7 @@ All persistent data files are stored on a private server with no public-facing n
 To provide specific features, the Bot communicates with external service providers over encrypted HTTPS connections. We do not sell or share your personal data with any third party beyond these essential functional connections.
 
 ### Google Gemini API (Primary AI Engine)
-When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI API endpoints (`gemini-3.8-flash` with fallbacks to `gemini-3.7-flash`, `gemini-3.6-flash`, `gemini-3.5-flash`, `gemini-3.5-flash-lite`, `gemini-3.1-flash-lite`, and `gemini-3-flash-preview`). This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
+When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI API endpoints. The Bot uses a current Gemini model and may automatically fall back to other Gemini models if the primary model is unavailable. This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
 
 * **API Processing & Product Improvement**: Under Google's standard / free tier API terms, submitted prompt queries and model outputs may be processed by Google to provide, maintain, and improve Google products and services, and may be reviewed by trained human reviewers for quality and safety.
 * **Abuse & Safety Screening**: Google applies automated safety classifiers to detect policy violations (such as CSAM, malicious tooling, or harmful content) and retains request logs for security and statutory compliance.
@@ -114,6 +114,9 @@ When you use `/ask` or `/connectpeople`, your input query text is transmitted ov
 
 ### Roblox Public APIs
 When you use `/robloxinfo`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
+
+### Minecraft Lookup APIs (`/minecraftinfo`)
+When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
 
 ---
 
@@ -162,7 +165,3 @@ We may update this Privacy Policy from time to time to reflect feature updates, 
 ## 10. Contact
 
 If you have questions about this Privacy Policy or wish to exercise your data privacy rights, please contact the bot owner directly on Discord: **ltchaotic** (`<@363601406445355008>`).
-
-
-### 6.4. Minecraft & NameMC Lookup APIs (`/minecraftinfo`)
-When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
