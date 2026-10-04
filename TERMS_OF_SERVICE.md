@@ -1,6 +1,6 @@
 # Terms of Service for LTC Assistant
 
-Last Updated: 2 September 2026
+Last Updated: 12 September 2026
 
 Welcome to LTC Assistant. These Terms of Service ("Terms") govern your access to and use of the LTC Assistant Discord Bot ("the Bot", "the Service"). Please read them carefully.
 
