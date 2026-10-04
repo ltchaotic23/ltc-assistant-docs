@@ -1,6 +1,6 @@
 # Terms of Service for LTC Assistant
 
-Last Updated: 12 September 2026
+Last Updated: 4 October 2026
 
 Welcome to LTC Assistant. These Terms of Service ("Terms") govern your access to and use of the LTC Assistant Discord Bot ("the Bot", "the Service"). Please read them carefully.
 
@@ -10,7 +10,7 @@ By adding the Bot to a Discord server, interacting with its slash commands, or u
 
 ## 1. Description of the Service
 
-LTC Assistant is a multi-purpose Discord utility bot developed and operated by **ltchaotic**. It is designed with a privacy-first, least-privilege security model: Discord's `message_content` intent is explicitly disabled, meaning the Bot can never read general channel messages or server chat history. The Bot operates solely on data you explicitly provide through slash command interactions.
+LTC Assistant is a multi-purpose Discord utility bot developed and operated by **ltchaotic**. It is designed with a privacy-first, least-privilege security model: Discord's `message_content` intent is enabled strictly for dedicated public community integrations within the official LTC Sandbox support server (in-game Minecraft chat bridging and suggestion voting). In external servers and direct messages, the Bot does not read, store, or process general chat messages. The Bot operates solely on data you explicitly provide through slash command interactions.
 
 The Service includes, but is not limited to, the following features:
 
@@ -23,6 +23,8 @@ The Service includes, but is not limited to, the following features:
 - **Server & User Information (`/serverinfo`, `/discordinfo`, `/about`, `/help`)**: Informational displays of Discord server and user profile data. No data from these commands is stored.
 - **Server Administration (`/serversetup`, `/setwelcome`)**: Administrator control center for automated welcome messages, auto-role assignment, and native AutoMod security shields (Anti-Phishing, Invite Shield, Mention Spam, Toxicity Filter).
 - **Privacy & Data Management (`/privacy`)**: Self-service tools to review data handling, permanently delete all stored personal data, and clean up Direct Message history.
+- **Minecraft Community Features (`/mc status`, `/mc playtime`, `/mc audit`)**: Public community features available in the official LTC Sandbox server to view live server status, playtime leaderboards, in-game chat bridge relays, and recent public server event logs.
+- **Administrative Maintenance**: The Bot includes restricted internal maintenance and diagnostic tools available solely to the Bot operator for host system management. These tools are restricted from public use and do not collect or process user personal data.
 
 ---
 
@@ -50,8 +52,9 @@ By using the Service, you agree **not** to:
 
 Certain features of the Service depend on third-party APIs. By using these features, you acknowledge that your data will be processed by these third parties in accordance with their respective commercial and public policies:
 
-- **Google Gemini API** (`/ask`, `/connectpeople`): Queries are processed via Google's official Gemini AI API endpoints. This processing is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms). Under standard API terms, prompts and outputs may be processed by Google to improve services. Users must not submit sensitive personal data or secrets.
+- **Google Gemini API** (`/ask`, `/connectpeople`): Queries are processed via Google's official Gemini AI infrastructure (including Google Cloud Vertex AI and Google AI Studio endpoints). This processing is governed by [Google's Privacy Policy](https://policies.google.com/privacy), the [Google Cloud Privacy Notice](https://cloud.google.com/terms/cloud-privacy-notice), and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms). Under standard API terms, prompts and outputs may be processed by Google to improve services. Users must not submit sensitive personal data or secrets.
 - **Minecraft & Mojang APIs** (`/minecraftinfo`): Profile lookups query publicly available endpoints on Mojang's official API infrastructure and PlayerDB. Only publicly accessible data is retrieved.
+- **Minecraft Server Integration**: Community features in the official LTC Sandbox server query the local server daemon and public leaderboards. In-game chat relays transmit public chat messages sent in designated game-chat channels into the Minecraft server and vice versa.
 - **Roblox APIs** (`/robloxinfo`): Profile lookups query publicly available endpoints on Roblox's official API infrastructure. Only publicly accessible data is retrieved. No authentication credentials belonging to the queried user are accessed.
 
 We do not sell your data or share it with third parties outside of these functional integrations.

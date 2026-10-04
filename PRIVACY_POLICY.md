@@ -11,7 +11,7 @@ By using the Bot, you agree to the collection and processing of information in a
 ## 1. Core Privacy & Security Principles
 
 ### Least-Privilege Intent Access
-The Bot operates with Discord's `message_content` intent explicitly disabled for general usage. This means the Bot cannot read general channel messages, server chat history, or any messages you send outside of a slash command. The `members` intent is enabled solely to resolve member objects when displaying server membership information in `/discordinfo` and to deliver automated welcome greetings and auto-roles when enabled by server administrators. It is never used for mass data scraping or harvesting.
+The Bot interacts primarily via explicit slash commands. Discord's `message_content` intent is enabled strictly for dedicated public community integrations within the official LTC Sandbox support server — specifically to bridge in-game chat between designated `#game-chat` channels and the Minecraft server, and to attach voting reactions and discussion threads in the `#suggestions` channel. In external servers and direct messages, the Bot does not read, store, or process general chat messages. The `members` intent is enabled solely to resolve member objects when displaying server membership information in `/discordinfo` and to deliver automated welcome greetings and auto-roles when enabled by server administrators. It is never used for mass data scraping or harvesting.
 
 ### Pseudonymised Data Storage
 Raw Discord User IDs are not stored directly on disk for any user-facing features (streaks, badges, reminders, or disclaimer records). Instead, persistent data is keyed using a cryptographic pseudonym: a truncated SHA-256 hash of your Discord User ID combined with a private, server-side salt value. This means stored data cannot be attributed to a specific Discord account without access to both the original User ID and the private salt. Under the UK GDPR and EU GDPR, this is classified as pseudonymisation rather than full anonymisation, as the link to your identity can theoretically be re-established using the original identifier.
@@ -52,6 +52,12 @@ Check-ins are eligible once per 20-hour window (not strictly once per calendar d
 - **AutoMod Protection**: LTC Assistant configures native AutoMod rules (phishing, invite link shield, mention spam, toxicity) directly on Discord's edge infrastructure via the Discord API. The Bot does not inspect or log server messages for AutoMod.
 
 This data is configured and managed exclusively by server administrators to operate server management tools. No individual user-level personal data is collected by these features.
+
+### Minecraft Community Features (LTC Sandbox Only)
+Within the official LTC Sandbox server, the Bot operates public community server features:
+- **In-Game Chat Bridge**: Messages sent in designated `#game-chat` channels are relayed directly into in-game Minecraft chat (displaying the sender's Discord username and message text) to allow cross-platform communication. These messages are transiently relayed and are not stored in persistent database records by the Bot.
+- **Playtime & Public Leaderboard**: Total player playtime and in-game statistics recorded by the Minecraft server are displayed publicly via `/mc playtime` and automated leaderboard updates.
+- **Audit Logs**: Recent public player events (e.g. joins, leaves, deaths) and administrator moderation actions on the Minecraft server are queryable via `/mc audit` for community transparency.
 
 ### `/connectpeople` Diagnostic Telemetry
 For ongoing quality assurance, bug analysis, and model performance verification, a structured log entry is recorded for each use of `/connectpeople`. Each entry contains:
@@ -95,6 +101,7 @@ All persistent data files are stored on a private server with no public-facing n
 - **Restricted File Permissions**: All data files are created with OS-level permissions (`0o600`), restricting read and write access to the bot process only.
 - **Atomic Writes**: Data is written to a temporary file and then atomically replaced, preventing corruption from interrupted writes or concurrent access.
 - **Field-Level Encryption**: Sensitive data such as reminder text and recipient creator IDs are encrypted at rest using AES-128 CBC / HMAC SHA-256 via Fernet keys derived from server salt.
+- **Operational Diagnostic Logs**: System-level runtime logs (such as error traces, command execution timestamps, and administrative events) are maintained locally by the systemd journal service strictly for debugging, performance monitoring, and service security. These operational logs are subject to automated storage quotas (capped at 100 MB with a maximum 14-day rolling retention) and are automatically purged by the operating system.
 - **Private Server Access**: The server is accessible only via SSH with key-based authentication; no password-based login is enabled.
 
 ---
@@ -104,7 +111,7 @@ All persistent data files are stored on a private server with no public-facing n
 To provide specific features, the Bot communicates with external service providers over encrypted HTTPS connections. We do not sell or share your personal data with any third party beyond these essential functional connections.
 
 ### Google Gemini API (Primary AI Engine)
-When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI API endpoints. The Bot uses a current Gemini model and may automatically fall back to other Gemini models if the primary model is unavailable. This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy) and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
+When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI infrastructure (including Google Cloud Vertex AI and Google AI Studio endpoints). The Bot dynamically utilizes a current Gemini model and may automatically fall back to other Gemini models if the primary model is unavailable. This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy), the [Google Cloud Privacy Notice](https://cloud.google.com/terms/cloud-privacy-notice), and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
 
 * **API Processing & Product Improvement**: Under Google's standard / free tier API terms, submitted prompt queries and model outputs may be processed by Google to provide, maintain, and improve Google products and services, and may be reviewed by trained human reviewers for quality and safety.
 * **Abuse & Safety Screening**: Google applies automated safety classifiers to detect policy violations (such as CSAM, malicious tooling, or harmful content) and retains request logs for security and statutory compliance.
@@ -116,7 +123,7 @@ When you use `/ask` or `/connectpeople`, your input query text is transmitted ov
 When you use `/robloxinfo`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
 
 ### Minecraft Lookup APIs (`/minecraftinfo`)
-When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
+When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`, `crafthead.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
 
 ---
 
@@ -129,6 +136,7 @@ Your data is used exclusively to:
 - Generate AI-powered responses and biographical connection chains upon request.
 - Record diagnostic telemetry for `/connectpeople` to support quality assurance and bug resolution.
 - Enforce daily AI usage quotas to ensure fair access for all users.
+- Maintain restricted internal diagnostics and host management tools available solely to the Bot operator (these tools are restricted from public use and do not collect or process user personal data).
 
 ---
 
@@ -142,6 +150,7 @@ Your data is used exclusively to:
 | `/connectpeople` telemetry | 60 days maximum (rolling 50-entry cap per user); permanently deleted on user erasure request |
 | `/ask` conversation memory | Up to 15 minutes in RAM; never persisted to disk |
 | AI usage quotas | Up to 24 hours in RAM; never persisted to disk |
+| Operational system logs | Up to 14 days (rolling 100 MB cap); automated OS purge |
 | Google Gemini API retention | Governed by Google's Privacy Policy & Gemini API Terms (retained by Google for service delivery and product improvement) |
 
 ---
