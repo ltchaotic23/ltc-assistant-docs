@@ -1,6 +1,6 @@
 # Privacy Policy for LTC Assistant
 
-Last Updated: 4 October 2026
+Last Updated: 27 October 2026
 
 This Privacy Policy explains how LTC Assistant ("the Bot", "we", "us") collects, uses, stores, and protects your personal information. LTC Assistant is built around strict privacy-first principles, employing pseudonymised data storage, least-privilege Discord permissions, atomic file writes, and minimal data retention to protect user privacy at every layer.
 
@@ -46,7 +46,7 @@ Check-ins are eligible once per 20-hour window (not strictly once per calendar d
 - Your pseudonymised user key
 - The UTC ISO 8601 timestamp at which you accepted the first-time service disclaimer
 
-### Server Administration (`/serversetup`, `/setwelcome`)
+### Server Administration (`/serversetup`)
 - **Server Welcome Configuration**: The Discord Server (Guild) ID, selected Welcome Channel ID, and custom welcome message template.
 - **Auto-Role Configuration**: The Discord Role ID chosen by administrators to automatically assign to new human members upon joining.
 - **AutoMod Protection**: LTC Assistant configures native AutoMod rules (phishing, invite link shield, mention spam, toxicity) directly on Discord's edge infrastructure via the Discord API. The Bot does not inspect or log server messages for AutoMod.
@@ -81,7 +81,7 @@ Raw Discord User IDs are **not** recorded in telemetry entries. Entries are link
 The following data is processed exclusively in the server's RAM and is never written to disk.
 
 ### Conversation Memory (`/ask`)
-When you use `/ask`, your question and the AI response are held temporarily in RAM for up to 15 minutes. Within this window, you may submit follow-up questions, with the bot retaining up to the last 4 conversational exchanges (8 messages) in memory at any given time to provide coherent multi-turn responses. After 15 minutes of inactivity from the last reply, the session is automatically purged from RAM and the Discord response message is automatically deleted.
+When you use `/ask`, your question and the AI response are held temporarily in RAM for up to 15 minutes. Within this window, you may submit follow-up questions, with the bot retaining up to the last 4 conversational exchanges (8 messages) in memory at any given time to provide coherent multi-turn responses. After 15 minutes without a follow-up, the session is automatically purged from RAM. Each reply message is automatically deleted about 15 minutes after you sent the question or follow-up that produced it (Discord only allows the Bot to delete these messages within that window).
 
 ### Instant Session Purge ("Delete" / "Panic Burn")
 Clicking the **Delete** 🗑️ button on any `/ask` response immediately removes the active session from RAM and deletes the Discord message, with no delay.
@@ -158,7 +158,7 @@ Where you provide explicit, affirmative agreement:
 We process personal data where necessary for our legitimate interests or those of a third party, balanced against your rights and freedoms:
 - **Diagnostic Telemetry (`/connectpeople`)**: Our legitimate interest in quality assurance, verifying AI connection accuracy, detecting bugs, and maintaining system availability. *Safeguards*: Pseudonymised keys, a rolling 50-entry cap per user, and 60-day automatic expiration.
 - **Operational Diagnostic Logging**: Our legitimate interest in host security, preventing abuse or malicious overload, and troubleshooting runtime crashes. *Safeguards*: Local systemd access only, 100 MB storage cap, and 14-day rolling retention.
-- **Server Administration (`/serversetup`, `/setwelcome`)**: The legitimate interest of Discord server administrators in operating onboarding welcomes, assigning community roles, and enabling edge AutoMod rules.
+- **Server Administration (`/serversetup`)**: The legitimate interest of Discord server administrators in operating onboarding welcomes, assigning community roles, and enabling edge AutoMod rules.
 - **Minecraft Community Integrations**: The legitimate interest of LTC Sandbox members in transparent cross-platform chat relay, public server playtime leaderboards, and public audit records.
 
 ---
