@@ -1,225 +1,103 @@
 # Privacy Policy for LTC Assistant
 
-Last Updated: 27 October 2026
+Last Updated: 7 November 2026
 
-This Privacy Policy explains how LTC Assistant ("the Bot", "we", "us") collects, uses, stores, and protects your personal information. LTC Assistant is built around strict privacy-first principles, employing pseudonymised data storage, least-privilege Discord permissions, atomic file writes, and minimal data retention to protect user privacy at every layer.
+This policy explains what LTC Assistant ("the Bot") does with your information. The Bot is a free hobby project run by one developer, **ltchaotic** ("we", "us"). We try to keep as little about you as possible, and to keep what we do hold for no longer than we need it.
 
-By using the Bot, you agree to the collection and processing of information in accordance with this policy.
-
----
-
-## 1. Core Privacy & Security Principles
-
-### Least-Privilege Intent Access
-The Bot interacts primarily via explicit slash commands. Discord's `message_content` intent is enabled strictly for dedicated public community integrations within the official LTC Sandbox support server — specifically to bridge in-game chat between designated `#game-chat` channels and the Minecraft server, and to attach voting reactions and discussion threads in the `#suggestions` channel. In external servers and direct messages, the Bot does not read, store, or process general chat messages. The `members` intent is enabled solely to resolve member objects when displaying server membership information in `/discordinfo` and to deliver automated welcome greetings and auto-roles when enabled by server administrators. It is never used for mass data scraping or harvesting.
-
-### Pseudonymised Data Storage
-Raw Discord User IDs are not stored directly on disk for any user-facing features (streaks, badges, reminders, or disclaimer records). Instead, persistent data is keyed using a cryptographic pseudonym: a truncated SHA-256 hash of your Discord User ID combined with a private, server-side salt value. This means stored data cannot be attributed to a specific Discord account without access to both the original User ID and the private salt. Under the UK GDPR and EU GDPR, this is classified as pseudonymisation rather than full anonymisation, as the link to your identity can theoretically be re-established using the original identifier.
-
-### Atomic File Writes & Restricted Permissions
-All data files are written atomically using a write-to-temporary-file-then-replace strategy, ensuring that an interrupted or concurrent write cannot corrupt stored data. All data files are created with restricted OS-level file permissions (`0o600`), meaning only the bot process itself can read or write them.
+By using the Bot, you acknowledge this policy.
 
 ---
 
-## 2. Information We Collect and Store
+## In Short
 
-We collect and retain only the minimum data necessary to provide and maintain each feature. The following describes exactly what is stored for each feature.
-
-### Reminders (`/reminder`)
-- Your pseudonymised user key
-- The reminder message text (encrypted at rest using Fernet symmetric encryption)
-- The scheduled delivery time (UTC ISO 8601 timestamp)
-- Your raw Discord User ID (encrypted at rest inside each reminder entry as `creator` to allow Direct Message delivery)
-- A unique internal reminder identifier (UUID hex)
-
-> **Note**: Your raw Discord User ID is encrypted at rest and retained within reminder entries solely to enable the bot to deliver your reminder to your Discord Direct Messages. It is not used for any other purpose and is permanently removed when you delete reminders or wipe your data via `/privacy`.
-
-### Daily Check-In Streaks & Badges (`/daily`, `/profile`)
-- Your pseudonymised user key
-- Your current check-in streak count
-- Your all-time best check-in streak count
-- The ISO 8601 timestamp of your most recent check-in
-
-Check-ins are eligible once per 20-hour window (not strictly once per calendar day). Tiered badge progress across all achievement categories — Daily Streak 🔥, Timekeeper ⏰, and Historian 📜 — is also stored per badge, including progress count and the date of last increment.
-
-### AI Service Disclaimer (`/ask` — First-Time Acceptance)
-- Your pseudonymised user key
-- The UTC ISO 8601 timestamp at which you accepted the first-time service disclaimer
-
-### Server Administration (`/serversetup`)
-- **Server Welcome Configuration**: The Discord Server (Guild) ID, selected Welcome Channel ID, and custom welcome message template.
-- **Auto-Role Configuration**: The Discord Role ID chosen by administrators to automatically assign to new human members upon joining.
-- **AutoMod Protection**: LTC Assistant configures native AutoMod rules (phishing, invite link shield, mention spam, toxicity) directly on Discord's edge infrastructure via the Discord API. The Bot does not inspect or log server messages for AutoMod.
-
-This data is configured and managed exclusively by server administrators to operate server management tools. No individual user-level personal data is collected by these features.
-
-### Minecraft Community Features (LTC Sandbox Only)
-Within the official LTC Sandbox server, the Bot operates public community server features:
-- **In-Game Chat Bridge**: Messages sent in designated `#game-chat` channels are relayed directly into in-game Minecraft chat (displaying the sender's Discord username and message text) to allow cross-platform communication. These messages are transiently relayed and are not stored in persistent database records by the Bot.
-- **Playtime & Public Leaderboard**: Total player playtime and in-game statistics recorded by the Minecraft server are displayed publicly via `/mc playtime` and automated leaderboard updates.
-- **Audit Logs**: Recent public player events (e.g. joins, leaves, deaths) and administrator moderation actions on the Minecraft server are queryable via `/mc audit` for community transparency.
-
-### `/connectpeople` Diagnostic Telemetry
-For ongoing quality assurance, bug analysis, and model performance verification, a structured log entry is recorded for each use of `/connectpeople`. Each entry contains:
-- A short random internal record identifier
-- The UTC timestamp of the request
-- Your pseudonymised user key (or `activity_token`)
-- The sanitised names of both people submitted
-- The status of the request (e.g. success, error, or safety block)
-- The name of the Google Gemini model that generated the response
-- The execution duration in seconds
-- The length of the generated response in characters
-- The degrees-of-separation figure extracted from the response (if any)
-- Any error detail string (in the event of a failure)
-
-Raw Discord User IDs are **not** recorded in telemetry entries. Entries are linked to you exclusively through your pseudonymised key. When you request erasure via `/privacy`, all telemetry entries matching your account are permanently removed. The telemetry log is capped at 50 entries per user on a rolling basis with automatic 60-day global expiration; oldest entries are automatically discarded when the cap or expiration is reached.
+- The Bot mostly works through slash commands. It only keeps what a feature needs: your reminders, your `/daily` streak and badges, whether you've accepted the `/ask` notice, and some `/connectpeople` diagnostics.
+- Stored data is tied to a scrambled (pseudonymised) version of your Discord ID rather than your ID itself, except where a feature needs your real ID to work (for example, to DM you a reminder). Reminder contents are encrypted.
+- `/ask` and `/connectpeople` send your question to Google's Gemini AI. Don't put anything sensitive in them.
+- You can delete your stored data at any time with `/privacy`.
 
 ---
 
-## 3. Temporary & In-Memory Data Processing
+## 1. What We Store
 
-The following data is processed exclusively in the server's RAM and is never written to disk.
+The Bot keeps the following for as long as the feature needs it, or until you delete it:
 
-### Conversation Memory (`/ask`)
-When you use `/ask`, your question and the AI response are held temporarily in RAM for up to 15 minutes. Within this window, you may submit follow-up questions, with the bot retaining up to the last 4 conversational exchanges (8 messages) in memory at any given time to provide coherent multi-turn responses. After 15 minutes without a follow-up, the session is automatically purged from RAM. Each reply message is automatically deleted about 15 minutes after you sent the question or follow-up that produced it (Discord only allows the Bot to delete these messages within that window).
+- **Reminders (`/reminder`)**: the reminder text and when to send it, plus your Discord ID so the Bot can DM it to you. The text and your ID are encrypted. A reminder is removed once it's delivered or you delete it.
+- **Streaks and badges (`/daily`, `/profile`)**: your check-in streak, your best streak, when you last checked in, and your badge progress.
+- **`/ask` notice**: a record that you accepted the first-use notice, and when.
+- **`/connectpeople` diagnostics**: for each use, the two names you entered, whether it worked, which AI model answered, how long it took, and any error. We use this to find bugs and check the AI's answers. Entries are kept for up to 60 days.
+- **Server settings (`/serversetup`)**: if a server's admins set up welcome messages or auto-roles, the Bot stores the server's chosen channel, message and role. That's about the server, not about you. AutoMod rules are created in Discord itself; the Bot doesn't read or store the messages they check.
 
-### Instant Session Purge ("Delete" / "Panic Burn")
-Clicking the **Delete** 🗑️ button on any `/ask` response immediately removes the active session from RAM and deletes the Discord message, with no delay.
+## 2. What We Don't Store
 
-### Daily AI Usage Quotas
-To ensure fair use, a limit of 30 AI requests per user per 24-hour rolling period is enforced across `/ask` and `/connectpeople` combined. This quota is tracked using in-memory timestamps and is **never written to disk**. Quota data clears automatically after 24 hours without any persistent record.
+- **Your `/ask` conversations.** The Bot keeps your question and its answer in memory for up to about 15 minutes so you can ask follow-ups, then forgets them. The answer message is normally deleted automatically after about 15 minutes, and you can delete it straight away with the **Delete** button.
+- **Usage limits.** To keep things fair, the Bot limits how often you can use the AI features. It counts your recent requests in memory only.
+- **General chat.** The Bot doesn't read or keep normal chat messages, with the exceptions listed under "LTC Sandbox" below.
+- **Lookups.** `/robloxinfo`, `/minecraftinfo`, `/discordinfo` and `/serverinfo` show public information when you ask for it. The results aren't saved.
 
-### Interactive UI State
-UI component state (button interactions, select menus, paginator state) is held in RAM for the duration of the component's timeout (typically 3 minutes) and is discarded thereafter.
+## 3. LTC Sandbox and Other Servers We Run
 
----
+Some features only run in servers the developer runs:
 
-## 4. Data-at-Rest Security
+- **LTC Sandbox (Minecraft community server).** Messages in the game-chat channels are passed between Discord and the Minecraft server, showing your Discord name and your message. Server events (such as players joining, leaving or vouching for a friend, in-game bug reports, staff actions, and voice channel activity) are posted in the server's log channels. Playtime is shown on public leaderboards. To run the suggestions channel, the Bot also reacts to and opens threads on posts there.
+- **Private servers we manage.** Some admin tools run only in the developer's own servers. For example, a tool there keeps members' roles in line with their linked Roblox group ranks. These tools may look up the Discord and linked public game-account details of members of those servers to do their job, and don't keep that information longer than they need it.
 
-All persistent data files are stored on a private server with no public-facing network access other than the bot process itself. Security measures include:
+## 4. Services We Use
 
-- **Restricted File Permissions**: All data files are created with OS-level permissions (`0o600`), restricting read and write access to the bot process only.
-- **Atomic Writes**: Data is written to a temporary file and then atomically replaced, preventing corruption from interrupted writes or concurrent access.
-- **Field-Level Encryption**: Sensitive data such as reminder text and recipient creator IDs are encrypted at rest using AES-128 CBC / HMAC SHA-256 via Fernet keys derived from server salt.
-- **Operational Diagnostic Logs**: System-level runtime logs (such as error traces, command execution timestamps, and administrative events) are maintained locally by the systemd journal service strictly for debugging, performance monitoring, and service security. These operational logs are subject to automated storage quotas (capped at 100 MB with a maximum 14-day rolling retention) and are automatically purged by the operating system.
-- **Private Server Access**: The server is accessible only via SSH with key-based authentication; no password-based login is enabled.
+The Bot relies on other companies' services. Each has its own privacy policy:
 
----
+- **Discord.** Everything you do with the Bot goes through Discord ([Discord Privacy Policy](https://discord.com/privacy)).
+- **Google Gemini API** (`/ask`, `/connectpeople`). Your question is sent to Google to generate the answer ([Google Privacy Policy](https://policies.google.com/privacy), [Gemini API Terms](https://ai.google.dev/gemini-api/terms)). Some requests go through Google's free tier, where Google may use prompts and answers to improve its products and may have people review them. Others go through a paid tier, where Google says it doesn't use them for that. Either way, **don't enter passwords, secrets, financial details or other sensitive personal information.**
+- **Public game APIs.** Lookups use public Roblox, Mojang/Minecraft and similar profile services (for example PlayerDB, mc-heads.net and crafthead.net) to fetch public profile information. The private-server tools above may also use Bloxlink to find which Roblox account a Discord member has linked.
 
-## 5. Third-Party Services & External Data Processing
+We don't sell your data, and we only share it as needed to run these features. Some of these providers handle data outside the UK, including in the United States, under their own safeguards.
 
-To provide specific features, the Bot communicates with external service providers over encrypted HTTPS connections. We do not sell or share your personal data with any third party beyond these essential functional connections.
+## 5. Keeping Data Safe
 
-### Google Gemini API (Primary AI Engine)
-When you use `/ask` or `/connectpeople`, your input query text is transmitted over an encrypted HTTPS connection to Google's official Gemini AI infrastructure (including Google Cloud Vertex AI and Google AI Studio endpoints). The Bot dynamically utilizes a current Gemini model and may automatically fall back to other Gemini models if the primary model is unavailable. This transmission is governed by [Google's Privacy Policy](https://policies.google.com/privacy), the [Google Cloud Privacy Notice](https://cloud.google.com/terms/cloud-privacy-notice), and the [Google Gemini API Terms of Service](https://ai.google.dev/gemini-api/terms):
+We take reasonable steps to protect what we store. For example, data is kept on a private server with restricted access, sensitive data is pseudonymised or encrypted, and stored files can only be read by the Bot. No system is perfectly secure, though, and we can't guarantee that data will never be lost or exposed.
 
-* **API Processing & Product Improvement**: Under Google's standard / free tier API terms, submitted prompt queries and model outputs may be processed by Google to provide, maintain, and improve Google products and services, and may be reviewed by trained human reviewers for quality and safety.
-* **Abuse & Safety Screening**: Google applies automated safety classifiers to detect policy violations (such as CSAM, malicious tooling, or harmful content) and retains request logs for security and statutory compliance.
-* **No Local Disk Logging**: The Bot itself does not log or persist your `/ask` questions or answers to local disk files.
+The server also keeps short-lived technical logs (errors, which commands ran) so we can fix problems and spot abuse. These are deleted automatically, normally within about two weeks.
 
-> **Important Privacy Notice**: Because Google processes free-tier API queries under its standard terms, you should **never** submit secrets, passwords, financial information, confidential personal data, or sensitive third-party credentials into `/ask` or `/connectpeople`. The first-time `/ask` disclaimer reminds users of this requirement before first use.
+## 6. Why We Use Your Data (UK GDPR)
 
-### Roblox Public APIs
-When you use `/robloxinfo`, the Bot queries official public Roblox API endpoints (`users.roblox.com`, `thumbnails.roblox.com`, `presence.roblox.com`, `friends.roblox.com`, `groups.roblox.com`) to retrieve publicly available profile data, avatar images, presence status, and group memberships. No Roblox lookup history or results are stored locally.
+- **To provide the features you ask for** (reminders, streaks, AI answers): because it's needed to deliver the service you've chosen to use.
+- **The `/ask` notice**: based on your agreement when you accept it.
+- **Diagnostics, logs, server features and community features**: our legitimate interest, and the interest of server admins and communities, in running the Bot reliably, fixing bugs, preventing abuse and running their servers. We keep this to a minimum.
 
-### Minecraft Lookup APIs (`/minecraftinfo`)
-When you use `/minecraftinfo`, the Bot queries official public Mojang and PlayerDB endpoints (`api.mojang.com`, `sessionserver.mojang.com`, `playerdb.co`, `mc-heads.net`, `crafthead.net`) to retrieve publicly available Minecraft profile data, UUIDs, skin textures, and 3D renders. Direct links are provided to NameMC profiles. No Minecraft lookup history or results are stored locally.
+The Bot doesn't make automated decisions about you that have legal or similarly significant effects.
 
----
+## 7. How Long We Keep It
 
-## 6. How We Use Your Information
-
-Your data is used exclusively to:
-- Deliver active reminders to your Discord Direct Messages at the scheduled time.
-- Track and display your check-in streaks and badge progress.
-- Send automated server welcome messages where an administrator has configured this feature.
-- Generate AI-powered responses and biographical connection chains upon request.
-- Record diagnostic telemetry for `/connectpeople` to support quality assurance and bug resolution.
-- Enforce daily AI usage quotas to ensure fair access for all users.
-- Maintain restricted internal diagnostics and host management tools available solely to the Bot operator (these tools are restricted from public use and do not collect or process user personal data).
-
----
-
-## 7. Lawful Bases for Processing (UK GDPR Article 6)
-
-Under the UK General Data Protection Regulation (UK GDPR), we collect and process your personal data under the following lawful bases:
-
-### Performance of a Contract (Article 6(1)(b))
-Processing is necessary to perform our obligations to you under our Terms of Service when you invoke specific interactive features:
-- **Reminders (`/reminder`)**: Storing, managing, and delivering personal reminders to your Direct Messages at your requested time.
-- **Check-In Streaks & Badges (`/daily`, `/profile`)**: Recording your daily check-in streak count and awarding achievement badges upon your command.
-- **AI Query Execution (`/ask`, `/connectpeople`)**: Transmitting your query to AI infrastructure and delivering the generated response.
-
-### Consent (Article 6(1)(a))
-Where you provide explicit, affirmative agreement:
-- **First-Time AI Disclaimer Acceptance**: Recording your acceptance before `/ask` unlocks. You may withdraw this consent at any time by erasing your data via `/privacy`.
-
-### Legitimate Interests (Article 6(1)(f))
-We process personal data where necessary for our legitimate interests or those of a third party, balanced against your rights and freedoms:
-- **Diagnostic Telemetry (`/connectpeople`)**: Our legitimate interest in quality assurance, verifying AI connection accuracy, detecting bugs, and maintaining system availability. *Safeguards*: Pseudonymised keys, a rolling 50-entry cap per user, and 60-day automatic expiration.
-- **Operational Diagnostic Logging**: Our legitimate interest in host security, preventing abuse or malicious overload, and troubleshooting runtime crashes. *Safeguards*: Local systemd access only, 100 MB storage cap, and 14-day rolling retention.
-- **Server Administration (`/serversetup`)**: The legitimate interest of Discord server administrators in operating onboarding welcomes, assigning community roles, and enabling edge AutoMod rules.
-- **Minecraft Community Integrations**: The legitimate interest of LTC Sandbox members in transparent cross-platform chat relay, public server playtime leaderboards, and public audit records.
-
----
-
-## 8. Data Retention
-
-| Data Type | Retention Period |
+| Data | Kept for |
 | :--- | :--- |
-| Active reminders | Until delivered, manually deleted, or user data wiped |
-| Check-in streaks & badges | Until user data wiped via `/privacy` |
-| Disclaimer acceptance | Until user data wiped via `/privacy` |
-| `/connectpeople` telemetry | 60 days maximum (rolling 50-entry cap per user); permanently deleted on user erasure request |
-| `/ask` conversation memory | Up to 15 minutes in RAM; never persisted to disk |
-| AI usage quotas | Up to 24 hours in RAM; never persisted to disk |
-| Operational system logs | Up to 14 days (rolling 100 MB cap); automated OS purge |
-| Google Gemini API retention | Governed by Google's Privacy Policy & Gemini API Terms (retained by Google for service delivery and product improvement) |
+| Reminders | Until delivered or deleted |
+| Streaks, badges and the `/ask` notice | Until you delete your data, or the Bot shuts down |
+| `/connectpeople` diagnostics | Up to 60 days |
+| `/ask` conversations and usage limits | Memory only; gone within about a day at most |
+| Server technical logs | Normally about two weeks |
+| Data held by Google, Discord and others | Set by their own policies |
 
----
+## 8. Your Rights and Controls
 
-## 9. Your Data Rights (UK GDPR)
+- **Delete your data**: `/privacy` → **Delete Stored Data** removes your reminders, streaks, badges, notice record and `/connectpeople` diagnostics, and clears any active `/ask` session.
+- **Clean up DMs**: in DMs with the Bot, `/privacy` → **Clear DM Messages** removes the Bot's earlier messages.
+- **See or change your data**: `/profile` shows your streaks and badges. `/reminder` lets you view, edit and delete reminders.
 
-Under the UK General Data Protection Regulation (UK GDPR), you have statutory rights concerning your personal data:
+Under UK data protection law you can also ask to see, correct or delete your data, to limit or object to how we use it, or to get a copy of it. Contact us using the details below and we'll respond as soon as we reasonably can, within the time the law allows.
 
-- **Right to be Informed**: You have the right to be informed about how your personal data is collected and used. This Privacy Policy provides this information.
-- **Right of Access**: You have the right to request access to the personal data we hold about you.
-- **Right to Rectification**: You have the right to request correction of inaccurate or incomplete personal data.
-- **Right to Erasure**: You have the right to request the deletion of your personal data.
-- **Right to Restrict Processing**: You have the right to request the restriction of processing of your personal data under certain conditions.
-- **Right to Data Portability**: You have the right to request that personal data provided to us be transferred to you or another organisation where applicable.
-- **Right to Object**: You have the right to object to the processing of your personal data where processing is based on legitimate interests.
-- **Automated Decision-Making**: LTC Assistant does not engage in profiling or automated decision-making that produces legal or similarly significant effects.
+If you're unhappy with how we've handled your data, please tell us first so we can try to fix it. You can also complain to the UK Information Commissioner's Office: [ico.org.uk](https://ico.org.uk), helpline 0303 123 1113.
 
-### Self-Service Controls
-To make managing your information as convenient as possible, the Bot includes direct self-service controls:
-- **View Stored Data**: Use `/profile` to view your check-in streak and badges, or `/reminder` to view scheduled reminders.
-- **Modify Reminders**: Use the edit option within `/reminder` to adjust reminder text or scheduled times.
-- **Delete All Stored Data**: Running `/privacy` → **Delete Stored Data** permanently deletes all persistent data associated with your pseudonymised account (reminders, streak counts, badge achievements, disclaimer records, and diagnostic telemetry) and clears active AI sessions from memory.
-- **Clear DM Messages**: Within Direct Messages, `/privacy` → **Clear DM Messages** removes the Bot's prior messages from your Direct Message chat log.
+## 9. Age
 
-If you wish to exercise any statutory data protection rights or have questions about your data, please contact the developer directly via Discord or the official support server.
+You need to meet Discord's minimum age (at least 13, or older where your country requires it) to use the Bot.
 
-### Right to Lodge a Complaint
-If you are based in the United Kingdom and believe your data has been handled unlawfully, you have the right to lodge a complaint with the UK Information Commissioner's Office (ICO):
-* **Website**: [https://ico.org.uk](https://ico.org.uk)
-* **Helpline**: `0303 123 1113`
+## 10. Contact
 
----
+LTC Assistant is run by **ltchaotic**, who is responsible for your data under UK data protection law.
 
-## 10. Data Controller & Contact Information
+- **Discord**: message **ltchaotic** (`<@363601406445355008>`)
+- **Support server**: [discord.gg/Vm4y4pA3Yj](https://discord.gg/Vm4y4pA3Yj)
+- **GitHub**: [ltc-assistant-docs issues](https://github.com/ltchaotic23/ltc-assistant-docs/issues)
 
-LTC Assistant is developed and operated by individual developer **ltchaotic** as the Data Controller under the UK GDPR.
+## 11. Changes
 
-If you have questions about this Privacy Policy, wish to exercise any statutory rights, or require assistance with data deletion:
-
-- **Discord Direct Message**: Contact the developer directly: **ltchaotic** (`<@363601406445355008>`).
-- **Support & Sandbox Server**: Join the official server and contact staff or open an inquiry: [https://discord.gg/Vm4y4pA3Yj](https://discord.gg/Vm4y4pA3Yj).
-
-Users who are unable to contact the developer through Discord may submit an inquiry through the GitHub repository issue tracker at [https://github.com/ltchaotic23/ltc-assistant-docs/issues](https://github.com/ltchaotic23/ltc-assistant-docs/issues).
-
----
-
-## 11. Changes to This Privacy Policy
-
-We may update this Privacy Policy from time to time to reflect feature updates, changes in data practices, or legal requirements. The "Last Updated" date at the top of this document will reflect the date of the most recent revision. Continued use of the Bot after an update constitutes acceptance of the revised policy.
+We may update this policy as the Bot changes. The date at the top shows the latest version. If a change significantly affects how your data is used, we'll try to announce it in the support server.
