@@ -1,6 +1,6 @@
 # Privacy Policy for LTC Assistant
 
-Last Updated: 7 November 2026
+Last Updated: 21 November 2026
 
 This policy explains what LTC Assistant ("the Bot") does with your information. The Bot is a free hobby project run by one developer, **ltchaotic** ("we", "us"). We try to keep as little about you as possible, and to keep what we do hold for no longer than we need it.
 
@@ -25,13 +25,13 @@ The Bot keeps the following for as long as the feature needs it, or until you de
 - **Streaks and badges (`/daily`, `/profile`)**: your check-in streak, your best streak, when you last checked in, and your badge progress.
 - **`/ask` notice**: a record that you accepted the first-use notice, and when.
 - **`/connectpeople` diagnostics**: for each use, the two names you entered, whether it worked, which AI model answered, how long it took, and any error. We use this to find bugs and check the AI's answers. Entries are kept for up to 60 days.
-- **Server settings (`/serversetup`)**: if a server's admins set up welcome messages or auto-roles, the Bot stores the server's chosen channel, message and role. That's about the server, not about you. AutoMod rules are created in Discord itself; the Bot doesn't read or store the messages they check.
+- **Server settings (`/serversetup`)**: if a server's admins configure welcome messages, auto-roles, or opt-in `@LTC` reply-to-ask, the Bot stores the server's chosen channel, message, role, or toggle setting. That's about the server, not about you. AutoMod rules are created in Discord itself; the Bot doesn't read or store the messages they check.
 
 ## 2. What We Don't Store
 
 - **Your `/ask` conversations.** The Bot keeps your question and its answer in memory for up to about 15 minutes so you can ask follow-ups, then forgets them. The answer message is normally deleted automatically after about 15 minutes, and you can delete it straight away with the **Delete** button.
 - **Usage limits.** To keep things fair, the Bot limits how often you can use the AI features. It counts your recent requests in memory only.
-- **General chat.** The Bot doesn't read or keep normal chat messages, with the exceptions listed under "LTC Sandbox" below.
+- **General chat.** The Bot doesn't read or keep normal chat messages, except in servers where an admin has opted in via `/serversetup` and you explicitly reply to a message mentioning the Bot (`@LTC`) to ask about it (or in DMs), or in the "LTC Sandbox" channels listed below.
 - **Lookups.** `/robloxinfo`, `/minecraftinfo`, `/discordinfo` and `/serverinfo` show public information when you ask for it. The results aren't saved.
 
 ## 3. LTC Sandbox and Other Servers We Run
@@ -46,7 +46,7 @@ Some features only run in servers the developer runs:
 The Bot relies on other companies' services. Each has its own privacy policy:
 
 - **Discord.** Everything you do with the Bot goes through Discord ([Discord Privacy Policy](https://discord.com/privacy)).
-- **Google Gemini API** (`/ask`, `/connectpeople`). Your question is sent to Google to generate the answer ([Google Privacy Policy](https://policies.google.com/privacy), [Gemini API Terms](https://ai.google.dev/gemini-api/terms)). Some requests go through Google's free tier, where Google may use prompts and answers to improve its products and may have people review them. Others go through a paid tier, where Google says it doesn't use them for that. Either way, **don't enter passwords, secrets, financial details or other sensitive personal information.**
+- **Google Gemini API** (`/ask`, `Ask about message`, opt-in `@LTC` replies, `/connectpeople`). Your question (and, when using **Apps → Ask about message** or replying to a message mentioning the Bot in an opted-in server or DM, that referenced message's author display name and text) is sent to Google to generate the answer ([Google Privacy Policy](https://policies.google.com/privacy), [Gemini API Terms](https://ai.google.dev/gemini-api/terms)). Neither the prompt nor the referenced message is written to bot files; active conversation memory is held only in memory for up to 15 minutes. Some requests go through Google's free tier, where Google may use prompts and answers to improve its products and may have people review them. Others go through a paid tier, where Google says it doesn't use them for that. Either way, **don't enter passwords, secrets, financial details or other sensitive personal information.**
 - **Public game APIs.** Lookups use public Roblox, Mojang/Minecraft and similar profile services (for example PlayerDB, mc-heads.net and crafthead.net) to fetch public profile information. The private-server tools above may also use Bloxlink to find which Roblox account a Discord member has linked.
 
 We don't sell your data, and we only share it as needed to run these features. Some of these providers handle data outside the UK, including in the United States, under their own safeguards.

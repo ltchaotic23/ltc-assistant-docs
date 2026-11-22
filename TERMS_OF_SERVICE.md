@@ -41,7 +41,7 @@ Some features depend on Discord, Google, Roblox, Mojang/Minecraft and other serv
 
 ## 6. Your Privacy
 
-See the [Privacy Policy](https://ltchaotic23.github.io/ltc-assistant-docs/PRIVACY_POLICY.md) for what the Bot stores and how to delete it.
+See the [Privacy Policy](https://ltchaotic23.github.io/ltc-assistant-docs/PRIVACY_POLICY) for what the Bot stores and how to delete it.
 
 ## 7. Ownership
 
